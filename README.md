@@ -1,7 +1,13 @@
-# Prosek Volejbal v3
+# Prosek Volejbal – verze bez složek
 
-Vzhled je postavený podle dodaného návrhu: tmavý iPhone kalendář, modré štítky zápasů, detail zápasu, Web a Nastavení.
+Nahraj těchto 5 souborů přímo do kořene GitHub repozitáře:
 
-Data v `data/matches.json` jsou oddělená od UI. GitHub Actions může následně aktualizovat tento soubor z ČVS.
+- index.html
+- style.css
+- app.js
+- manifest.json
+- README.md
 
-Pozn.: iframe webu může být na některých zařízeních blokovaný bezpečnostní politikou samotného webu; tlačítko pro otevření webu zůstává.
+Žádné podsložky nejsou potřeba.
+
+Tato verze má data zápasů přímo v app.js, takže funguje okamžitě přes GitHub Pages.

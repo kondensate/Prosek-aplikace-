@@ -1,10 +1,1 @@
-{
-  "name": "Prosek Volejbal",
-  "short_name": "Prosek",
-  "start_url": ".",
-  "display": "standalone",
-  "background_color": "#030405",
-  "theme_color": "#030405",
-  "lang": "cs",
-  "icons": []
-}
+{"name":"Prosek Volejbal","short_name":"Prosek","start_url":".","display":"standalone","background_color":"#050608","theme_color":"#050608","lang":"cs"}

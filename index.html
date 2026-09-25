@@ -2,81 +2,65 @@
 <html lang="cs">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#050607">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050608">
 <link rel="manifest" href="manifest.json">
 <link rel="stylesheet" href="style.css">
 <title>Prosek Volejbal</title>
 </head>
 <body>
-<div id="app" class="app">
-  <section id="calendarView" class="view">
-    <header class="header">
-      <div><h1>Prosek Volejbal</h1><div class="updated" id="updated">Aktualizováno: —</div></div>
-      <button class="gear" data-open="settings">⚙</button>
-    </header>
+<div id="app">
+<header class="header">
+  <div><h1>Prosek Volejbal</h1><div id="updated">Aktualizováno: 25. 9. 2026</div></div>
+  <div class="head-actions"><button id="today">Dnes</button><button id="refresh">↻</button><button id="settingsBtn">⚙</button></div>
+</header>
 
-    <div class="monthbar">
-      <button id="prevMonth">‹</button><strong id="monthLabel"></strong><button id="nextMonth">›</button>
-      <button id="today">Dnes</button><button id="refresh">↻</button>
-    </div>
+<section class="monthbar"><button id="prev">‹</button><strong id="month"></strong><button id="next">›</button></section>
 
-    <div class="filters">
-      <button class="pill active" data-filter="Vše">Vše</button>
-      <button class="pill" data-filter="U18">U18</button>
-      <button class="pill" data-filter="U20">U20</button>
-      <button class="pill" data-filter="U22">U22</button>
-      <button class="pill" data-filter="Tréninky">Tréninky</button>
-    </div>
-
-    <div class="calendar-card">
-      <div class="weekdays"><span>Po</span><span>Út</span><span>St</span><span>Čt</span><span>Pá</span><span>So</span><span>Ne</span></div>
-      <div id="calendarGrid" class="calendar-grid"></div>
-    </div>
-
-    <div class="section-head"><h2>Kalendář</h2><button id="addTraining">＋ Přidat trénink</button></div>
-    <div id="eventList" class="event-list"></div>
-  </section>
-
-  <section id="detailView" class="view hidden">
-    <header class="detail-nav"><button id="backBtn">‹ Zpět</button><button>↗</button></header>
-    <div id="detail"></div>
-  </section>
-
-  <section id="webView" class="view hidden">
-    <header class="simple-header"><h1>Web</h1><p>Oficiální stránky Prosek Volejbal</p></header>
-    <div class="browser-bar"><span>🔒 www.volejbalek.cz</span><button id="openWeb">↻</button></div>
-    <div class="web-frame"><iframe src="https://www.volejbalek.cz/" title="Volejbalek"></iframe></div>
-  </section>
-
-  <section id="settingsView" class="view hidden">
-    <header class="simple-header"><h1>Nastavení</h1></header>
-    <div class="settings-card">
-      <div class="setting-title">👤 <span>Tým<br><b>SK Prosek Praha</b></span><span>›</span></div>
-      <div class="group-title">Zobrazované kategorie</div>
-      <label class="checkrow"><span>🔵 U18 – Extraliga</span><input type="checkbox" checked></label>
-      <label class="checkrow"><span>🔵 U20</span><input type="checkbox" checked></label>
-      <label class="checkrow"><span>🔵 U22</span><input type="checkbox" checked></label>
-      <label class="checkrow"><span>🔵 Tréninky</span><input type="checkbox" checked></label>
-      <div class="group-title">Oznámení</div>
-      <label class="switchrow"><span>🔔 Upozornění na zápasy</span><input type="checkbox" checked></label>
-      <label class="switchrow"><span>🔔 Změny termínů</span><input type="checkbox" checked></label>
-      <label class="switchrow"><span>💬 Výsledky zápasů</span><input type="checkbox" checked></label>
-      <div class="group-title">Automatická aktualizace</div>
-      <label class="switchrow"><span>⟳ Načítat data z ČVS / volejbalek.cz</span><input type="checkbox" checked></label>
-      <div class="setting-title"><span>Interval aktualizace<br><b>Každých 6 hodin</b></span><span>›</span></div>
-      <div class="group-title">Vzhled</div>
-      <label class="switchrow"><span>🌙 Tmavý režim</span><input id="themeToggle" type="checkbox" checked></label>
-      <div class="setting-title"><span>ⓘ O aplikaci<br><b>Verze 1.0</b></span><span>›</span></div>
-    </div>
-  </section>
+<div class="filters">
+  <button class="filter active" data-cat="Vše">Vše</button>
+  <button class="filter" data-cat="U18">U18</button>
+  <button class="filter" data-cat="U20">U20</button>
+  <button class="filter" data-cat="U22">U22</button>
+  <button class="filter" data-cat="Tréninky">Tréninky</button>
 </div>
 
-<nav class="bottom-nav">
-  <button class="nav active" data-view="calendarView">▣<span>Kalendář</span></button>
-  <button class="nav" data-view="webView">◎<span>Web</span></button>
-  <button class="nav" data-view="settingsView">⚙<span>Nastavení</span></button>
+<section class="calendar-card">
+  <div class="weekdays"><span>Po</span><span>Út</span><span>St</span><span>Čt</span><span>Pá</span><span>So</span><span>Ne</span></div>
+  <div id="calendar" class="calendar"></div>
+</section>
+
+<section class="content">
+  <div class="section-head"><h2>Kalendář</h2><button id="addTraining">＋ Přidat trénink</button></div>
+  <div id="events"></div>
+</section>
+
+<nav class="tabs">
+ <button class="tab active" data-page="calendarPage">▣<span>Kalendář</span></button>
+ <button class="tab" data-page="webPage">◎<span>Web</span></button>
+ <button class="tab" data-page="settingsPage">⚙<span>Nastavení</span></button>
 </nav>
+</div>
+
+<section id="webPage" class="page hidden">
+ <h1>Web</h1><p>Oficiální stránky Prosek Volejbal</p>
+ <div class="browser"><div class="browserbar">🔒 www.volejbalek.cz</div><iframe src="https://www.volejbalek.cz/" title="Prosek Web"></iframe></div>
+ <a class="openweb" href="https://www.volejbalek.cz/" target="_blank">Otevřít web</a>
+</section>
+
+<section id="settingsPage" class="page hidden">
+ <h1>Nastavení</h1>
+ <div class="setting"><span>Tým<br><small>SK Prosek Praha</small></span><b>›</b></div>
+ <div class="setting"><span>Zobrazované kategorie<br><small>U18 · U20 · U22 · Tréninky</small></span><b>✓</b></div>
+ <div class="setting"><span>🔔 Upozornění na zápasy</span><input type="checkbox" checked></div>
+ <div class="setting"><span>🔔 Změny termínů</span><input type="checkbox" checked></div>
+ <div class="setting"><span>🔔 Výsledky zápasů</span><input type="checkbox" checked></div>
+ <div class="setting"><span>Automatická aktualizace<br><small>Načítat data z ČVS / volejbalek.cz</small></span><input type="checkbox" checked></div>
+ <div class="setting"><span>Interval aktualizace<br><small>Každých 6 hodin</small></span><b>›</b></div>
+ <div class="setting"><span>O aplikaci<br><small>Verze 1.0</small></span><b>›</b></div>
+</section>
+
+<div id="detail" class="modal hidden"><div class="detail-card"><button class="close" id="close">‹ Zpět</button><div id="detailBody"></div></div></div>
 <script src="app.js"></script>
 </body>
 </html>
