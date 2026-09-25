@@ -1,9 +1,13 @@
 # Prosek Volejbal – opravená mobilní verze
 
-Opraveno:
-- JavaScript měl po nahrání na GitHubu chybné znaky `\n`, kvůli kterým se aplikace na mobilu nespustila.
-- Nová verze má nový cache `prosek-v3`, takže Safari dostane nový JavaScript.
-- Zachováno tlačítko Zpět, detail zápasu, Web, Nastavení, filtry a ikony.
+Opravy:
+- opravená navigace a historie tlačítka Zpět,
+- bezpečnější vykreslování názvů týmů a míst,
+- stabilnější přechod mezi měsíci,
+- kontrola formátu `data.json` při načítání,
+- opravená aktualizace Service Workeru na `prosek-v4`,
+- Service Worker už nezasahuje do externích webů/iframe,
+- zachovány kalendář, filtry, detail zápasu, Web, Nastavení a záložní data.
 
-Nahraj všechny soubory přímo do kořene repozitáře:
-index.html, style.css, app.js, manifest.json, data.json, sw.js, icon-192.png, icon-512.png, README.md, AUTOMATICKA_AKTUALIZACE.txt.
+Soubory nahraj přímo do kořene repozitáře:
+`index.html`, `style.css`, `app.js`, `manifest.json`, `data.json`, `sw.js`, `icon-192.png`, `icon-512.png`, `README.md`, `AUTOMATICKA_AKTUALIZACE.txt`.
