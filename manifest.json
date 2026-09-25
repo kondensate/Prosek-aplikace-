@@ -3,7 +3,8 @@
   "short_name": "Prosek",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#0d0f13",
-  "theme_color": "#0d0f13",
-  "lang": "cs"
+  "background_color": "#030405",
+  "theme_color": "#030405",
+  "lang": "cs",
+  "icons": []
 }

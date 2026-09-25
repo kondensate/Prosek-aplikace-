@@ -1,12 +1,7 @@
-# Prosek Volejbal – v2
+# Prosek Volejbal v3
 
-PWA pro iPhone s kalendářem všech nalezených zápasů Proseku.
+Vzhled je postavený podle dodaného návrhu: tmavý iPhone kalendář, modré štítky zápasů, detail zápasu, Web a Nastavení.
 
-## Automatická aktualizace
-GitHub Actions spouští `scripts/update_data.py` každých 6 hodin a aktualizuje `data/matches.json` podle stránek ČVS.
+Data v `data/matches.json` jsou oddělená od UI. GitHub Actions může následně aktualizovat tento soubor z ČVS.
 
-## Důležité
-Parser je oddělený od UI. ČVS může změnit HTML, takže po změně struktury může být potřeba upravit parser.
-
-## Web
-Záložka „Prosek Web“ zobrazuje volejbalek.cz přímo v aplikaci pomocí iframe; pokud web vložení nepovolí, je k dispozici tlačítko pro otevření webu samostatně.
+Pozn.: iframe webu může být na některých zařízeních blokovaný bezpečnostní politikou samotného webu; tlačítko pro otevření webu zůstává.
