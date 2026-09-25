@@ -1,0 +1,65 @@
+name: Aktualizace zápasů Proseku
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "15 */6 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Stáhnout aktuální zápasy z ČVS
+        shell: python
+        run: |
+          import json, re, urllib.request
+          from pathlib import Path
+
+          sources = [
+            ("U18","1. liga U18","https://www.cvf.cz/souteze/celostatni-souteze?competitionId=18672&mode=clubs&teamId=93505"),
+            ("U18","Extraliga U18","https://www.cvf.cz/souteze/celostatni-souteze?competitionId=18670&mode=clubs&teamId=93471"),
+            ("U20","Extraliga U20","https://www.cvf.cz/souteze/celostatni-souteze?competitionId=18666&mode=clubs&teamId=93392"),
+            ("U22","Extraliga U22","https://www.cvf.cz/souteze/celostatni-souteze?competitionId=18662&mode=clubs&teamId=93313"),
+            ("Muži","2. liga muži","https://www.cvf.cz/souteze/celostatni-souteze?competitionId=18660&mode=clubs&teamId=93264"),
+          ]
+
+          def clean(s):
+              return re.sub(r"\s+"," ",s).strip()
+
+          out=[]
+          for cat, comp, url in sources:
+              req=urllib.request.Request(url,headers={"User-Agent":"Mozilla/5.0"})
+              html=urllib.request.urlopen(req,timeout=30).read().decode("utf-8","ignore")
+              text=clean(re.sub(r"<[^>]+>"," ",html))
+              # Find date/time blocks and the nearest Prosek context.
+              pat=re.compile(r"(\d{1,2})\.\s*(\d{1,2})\.\s*(\d{4}).{0,80}?(\d{1,2}:\d{2}).{0,500}?((?:SK Prosek Praha(?: B)?|Prosek)[^<]{0,100}|[^<]{0,100}(?:SK Prosek Praha(?: B)?|Prosek))",re.I)
+              for m in pat.finditer(text):
+                  d,mo,y,t,ctx=m.groups()
+                  window=text[max(0,m.start()):m.end()+350]
+                  if "Prosek" not in window: continue
+                  # Best-effort extraction of the two team names from the surrounding text.
+                  names=re.findall(r"(?:SK Prosek Praha(?: B)?|VK [A-Za-zÀ-ž0-9 .-]+|TJ [A-Za-zÀ-ž0-9 .-]+|Kladno volejbal cz|AERO Odolena Voda|Falcons Modřany|INLAB SK Meteor Praha|VAM Olomouc|USK Slavia Plzeň)",window)
+                  if len(names)<2: continue
+                  home,away=names[-2],names[-1]
+                  out.append({"date":f"{y}-{int(mo):02d}-{int(d):02d}","time":t,"cat":cat,"comp":comp,"home":home,"away":away,"place":"","address":""})
+
+          # Keep existing data if parsing returns nothing; otherwise replace with newest parsed set.
+          if out:
+              uniq={}
+              for m in out: uniq[(m["date"],m["time"],m["cat"],m["home"],m["away"])]=m
+              Path("data.json").write_text(json.dumps(sorted(uniq.values(),key=lambda x:(x["date"],x["time"])),ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+          else:
+              print("ČVS parser nenašel data; ponechávám data.json beze změny.")
+
+      - name: Uložit změny
+        run: |
+          git config user.name "Prosek Volejbal Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data.json
+          git diff --cached --quiet || git commit -m "Automatická aktualizace zápasů z ČVS"
+          git push

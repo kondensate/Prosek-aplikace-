@@ -1,13 +1,17 @@
-# Prosek Volejbal – verze bez složek
+# Prosek Volejbal
 
-Nahraj těchto 5 souborů přímo do kořene GitHub repozitáře:
+Tato verze používá:
+- `data.json` pro zápasy
+- automatické načítání `data.json` v aplikaci
+- ikony `icon-192.png` a `icon-512.png`
+- kategorie U18, U20, U22 a Muži
 
-- index.html
-- style.css
-- app.js
-- manifest.json
-- README.md
+## Automatická aktualizace
+Soubor `AUTOMATICKA_AKTUALIZACE.txt` obsahuje hotový GitHub Actions workflow.
+GitHub Actions vyžaduje, aby tento obsah byl uložen jako:
+`.github/workflows/update-cvs.yml`
 
-Žádné podsložky nejsou potřeba.
+Workflow kontroluje ČVS každých 6 hodin a uloží nové zápasy do `data.json`.
 
-Tato verze má data zápasů přímo v app.js, takže funguje okamžitě přes GitHub Pages.
+## Ikona
+Do repozitáře jsou přidány stejné ikony, které byly dodány pro aplikaci.
