@@ -1,18 +1,9 @@
 # Prosek Volejbal
 
-iOS aplikace pro SK Prosek.
+První webová/PWA verze aplikace pro iPhone.
 
-## Funkce
+## Spuštění
+Nahraj všechny soubory do GitHubu a zapni GitHub Pages.
 
-- Kalendář turnajů a zápasů
-- U18 / U20 / U22
-- Automatické načítání údajů z ČVS
-- Výsledky
-- Web volejbalek.cz
-- Nastavení
-- Upozornění na zápasy a změny
-
-## Zdroje
-
-- https://www.volejbalek.cz/
-- https://www.cvf.cz/
+## Poznámka
+Kalendář zatím používá ukázková data. Další krok je napojení na skutečná data ČVS/volejbalek.cz, aby se turnaje přidávaly automaticky.
